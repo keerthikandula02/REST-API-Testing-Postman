@@ -1,0 +1,23 @@
+{
+  "validUser": {
+    "userId": 1
+  },
+  "invalidUser": {
+    "userId": 99999
+  },
+  "validPost": {
+    "postId": 1,
+    "title": "QA Automation Project",
+    "body": "Postman API testing practice",
+    "userId": 1
+  },
+  "updatedPost": {
+    "id": 1,
+    "title": "Updated QA Project",
+    "body": "Updated using PUT",
+    "userId": 1
+  },
+  "patchPost": {
+    "title": "Partially Updated"
+  }
+}
