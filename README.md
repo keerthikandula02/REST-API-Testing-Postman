@@ -52,7 +52,7 @@ Requirement → Test Scenario → Postman Request → API Response
 | GET | Invalid user/post | Negative 404 validation |
 | POST | Create post | 201 + created fields |
 | PUT | Full update | 200 + updated fields |
-| PATCH | Partial update | 200 + updated title |
+| PATCH | Partial update | 200 + updated fields |
 | DELETE | Delete post | Successful response |
 
 ## ✅ Example Postman Assertions
@@ -120,20 +120,51 @@ npm test
 
 `.github/workflows/api-tests.yml` runs the collection with Newman for CI regression on repository changes and supports manual execution.
 
-## 📸 Screenshots
+# 📸 Test Case Screenshot Evidence
 
-The `Screenshots/` folder contains the checklist for **real execution evidence**. Capture screenshots from your own Postman run and GitHub Actions run rather than presenting mock results as real evidence.
+The `Screenshots/` folder now contains **one dedicated screenshot-style visual for every documented test case (TC001–TC025)**. The visuals are designed in a Postman-style layout so an interviewer can quickly understand the request, response, validation and expected outcome.
 
-Recommended evidence:
+> **Transparency note:** these repository visuals are **illustrative portfolio mockups**, not claimed as screenshots captured from a live Postman run. After executing the collection yourself, replace each SVG with the corresponding real Postman screenshot if you want execution evidence.
 
-1. GET + response + passing assertions
-2. POST + JSON body + 201
-3. PUT + response
-4. PATCH + response
-5. DELETE + response
-6. Negative 404 test
-7. Collection Runner results
-8. GitHub Actions successful run
+### Featured evidence
+
+| Test Case | Evidence |
+|---|---|
+| TC001 — GET Valid User | ![TC001](Screenshots/TC001_GET_Valid_User.svg) |
+| TC003 — GET Invalid User | ![TC003](Screenshots/TC003_GET_Invalid_User_404.svg) |
+| TC008 — POST Create Post | ![TC008](Screenshots/TC008_POST_Create_Post.svg) |
+| TC011 — PUT Update Post | ![TC011](Screenshots/TC011_PUT_Update_Post.svg) |
+| TC013 — PATCH Update | ![TC013](Screenshots/TC013_PATCH_Update_Title.svg) |
+| TC015 — DELETE Post | ![TC015](Screenshots/TC015_DELETE_Post.svg) |
+| TC024 — Collection Run | ![TC024](Screenshots/TC024_Collection_Run.svg) |
+
+### Complete evidence index
+
+- [TC001 — GET Valid User](Screenshots/TC001_GET_Valid_User.svg)
+- [TC002 — GET User 2](Screenshots/TC002_GET_User_2.svg)
+- [TC003 — GET Invalid User / 404](Screenshots/TC003_GET_Invalid_User_404.svg)
+- [TC004 — GET Non-Numeric User ID](Screenshots/TC004_GET_NonNumeric_User_ID.svg)
+- [TC005 — GET All Posts](Screenshots/TC005_GET_All_Posts.svg)
+- [TC006 — GET Single Post](Screenshots/TC006_GET_Single_Post.svg)
+- [TC007 — GET Invalid Post / 404](Screenshots/TC007_GET_Invalid_Post_404.svg)
+- [TC008 — POST Create Post](Screenshots/TC008_POST_Create_Post.svg)
+- [TC009 — POST Empty Body](Screenshots/TC009_POST_Empty_Body.svg)
+- [TC010 — POST Missing userId](Screenshots/TC010_POST_Missing_UserId.svg)
+- [TC011 — PUT Update Post](Screenshots/TC011_PUT_Update_Post.svg)
+- [TC012 — PUT Invalid Post](Screenshots/TC012_PUT_Invalid_Post.svg)
+- [TC013 — PATCH Update Title](Screenshots/TC013_PATCH_Update_Title.svg)
+- [TC014 — PATCH Invalid Post](Screenshots/TC014_PATCH_Invalid_Post.svg)
+- [TC015 — DELETE Post](Screenshots/TC015_DELETE_Post.svg)
+- [TC016 — DELETE Invalid Post](Screenshots/TC016_DELETE_Invalid_Post.svg)
+- [TC017 — Response Time Validation](Screenshots/TC017_Response_Time_Validation.svg)
+- [TC018 — Content-Type Validation](Screenshots/TC018_Content_Type_Validation.svg)
+- [TC019 — Required ID Field](Screenshots/TC019_Required_ID_Field.svg)
+- [TC020 — Required Email Field](Screenshots/TC020_Required_Email_Field.svg)
+- [TC021 — Array Response Validation](Screenshots/TC021_GET_Array_Response.svg)
+- [TC022 — Environment userId](Screenshots/TC022_Environment_UserId.svg)
+- [TC023 — Environment postId](Screenshots/TC023_Environment_PostId.svg)
+- [TC024 — Collection Runner](Screenshots/TC024_Collection_Run.svg)
+- [TC025 — Execution Reporting](Screenshots/TC025_Reporting.svg)
 
 ## 📁 Repository Structure
 
@@ -144,6 +175,10 @@ REST-API-Testing-Postman/
 ├── Postman/
 ├── TestCases/
 ├── Screenshots/
+│   ├── TC001_*.svg
+│   ├── TC002_*.svg
+│   ├── ...
+│   └── TC025_*.svg
 ├── .gitignore
 ├── package.json
 └── README.md
