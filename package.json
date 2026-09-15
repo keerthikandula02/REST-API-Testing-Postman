@@ -1,0 +1,12 @@
+{
+  "name": "rest-api-testing-postman",
+  "version": "1.0.0",
+  "private": true,
+  "description": "REST API testing portfolio project using Postman and Newman",
+  "scripts": {
+    "test": "newman run Postman/API_Testing_Collection_v2.json -e Postman/QA_Environment.json --reporters cli"
+  },
+  "devDependencies": {
+    "newman": "^6.2.1"
+  }
+}
