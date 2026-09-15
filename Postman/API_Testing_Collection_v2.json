@@ -1,0 +1,59 @@
+{
+  "info": {
+    "name": "QA REST API Testing - JSONPlaceholder v2",
+    "description": "Interview-ready Postman collection covering CRUD, assertions, headers, response time, variables and negative scenarios.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {"key":"baseUrl","value":"https://jsonplaceholder.typicode.com"},
+    {"key":"userId","value":"1"},
+    {"key":"postId","value":"1"}
+  ],
+  "item": [
+    {
+      "name":"Users",
+      "item":[
+        {
+          "name":"GET - Valid User",
+          "request":{"method":"GET","header":[],"url":{"raw":"{{baseUrl}}/users/{{userId}}","host":["{{baseUrl}}"],"path":["users","{{userId}}"]}},
+          "event":[{"listen":"test","script":{"exec":["pm.test('Status code is 200', () => pm.response.to.have.status(200));","pm.test('Response time is below 1000ms', () => pm.expect(pm.response.responseTime).to.be.below(1000));","pm.test('Required user fields exist', () => { const body = pm.response.json(); pm.expect(body).to.have.property('id'); pm.expect(body).to.have.property('name'); pm.expect(body).to.have.property('email'); });"],"type":"text/javascript"}}]
+        },
+        {
+          "name":"GET - Invalid User",
+          "request":{"method":"GET","header":[],"url":{"raw":"{{baseUrl}}/users/99999","host":["{{baseUrl}}"],"path":["users","99999"]}},
+          "event":[{"listen":"test","script":{"exec":["pm.test('Invalid user returns 404', () => pm.response.to.have.status(404));"],"type":"text/javascript"}}]
+        }
+      ]
+    },
+    {
+      "name":"Posts CRUD",
+      "item":[
+        {
+          "name":"GET - All Posts",
+          "request":{"method":"GET","header":[],"url":{"raw":"{{baseUrl}}/posts","host":["{{baseUrl}}"],"path":["posts"]}},
+          "event":[{"listen":"test","script":{"exec":["pm.test('Status code is 200', () => pm.response.to.have.status(200));","pm.test('Response is an array', () => pm.expect(pm.response.json()).to.be.an('array'));"],"type":"text/javascript"}}]
+        },
+        {
+          "name":"POST - Create Post",
+          "request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"title\": \"QA Automation Project\",\n  \"body\": \"Postman API testing practice\",\n  \"userId\": 1\n}"},"url":{"raw":"{{baseUrl}}/posts","host":["{{baseUrl}}"],"path":["posts"]}},
+          "event":[{"listen":"test","script":{"exec":["pm.test('Status code is 201', () => pm.response.to.have.status(201));","pm.test('Created title is correct', () => pm.expect(pm.response.json().title).to.eql('QA Automation Project'));"],"type":"text/javascript"}}]
+        },
+        {
+          "name":"PUT - Update Post",
+          "request":{"method":"PUT","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"id\": 1,\n  \"title\": \"Updated QA Project\",\n  \"body\": \"Updated using PUT\",\n  \"userId\": 1\n}"},"url":{"raw":"{{baseUrl}}/posts/{{postId}}","host":["{{baseUrl}}"],"path":["posts","{{postId}}"]}},
+          "event":[{"listen":"test","script":{"exec":["pm.test('Status code is 200', () => pm.response.to.have.status(200));","pm.test('Updated title is returned', () => pm.expect(pm.response.json().title).to.eql('Updated QA Project'));"],"type":"text/javascript"}}]
+        },
+        {
+          "name":"PATCH - Update Title",
+          "request":{"method":"PATCH","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"title\": \"Partially Updated\"\n}"},"url":{"raw":"{{baseUrl}}/posts/{{postId}}","host":["{{baseUrl}}"],"path":["posts","{{postId}}"]}},
+          "event":[{"listen":"test","script":{"exec":["pm.test('Status code is 200', () => pm.response.to.have.status(200));","pm.test('Title is updated', () => pm.expect(pm.response.json().title).to.eql('Partially Updated'));"],"type":"text/javascript"}}]
+        },
+        {
+          "name":"DELETE - Delete Post",
+          "request":{"method":"DELETE","header":[],"url":{"raw":"{{baseUrl}}/posts/{{postId}}","host":["{{baseUrl}}"],"path":["posts","{{postId}}"]}},
+          "event":[{"listen":"test","script":{"exec":["pm.test('Status code is 200', () => pm.response.to.have.status(200));"],"type":"text/javascript"}}]
+        }
+      ]
+    }
+  ]
+}
