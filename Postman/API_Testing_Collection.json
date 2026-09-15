@@ -1,0 +1,228 @@
+{
+  "info": {
+    "_postman_id": "8d3e5c8a-qa-rest-api-project",
+    "name": "QA REST API Testing - JSONPlaceholder",
+    "description": "Fresher QA API testing project covering CRUD, validations, negative scenarios, variables and automated assertions.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://jsonplaceholder.typicode.com"
+    },
+    {
+      "key": "userId",
+      "value": "1"
+    },
+    {
+      "key": "postId",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "GET - Get User",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/users/{{userId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response time is below 1000ms', function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+              "});",
+              "",
+              "pm.test('User response contains required fields', function () {",
+              "    const body = pm.response.json();",
+              "    pm.expect(body).to.have.property('id');",
+              "    pm.expect(body).to.have.property('name');",
+              "    pm.expect(body).to.have.property('email');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "GET - Get All Posts",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/posts"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', () => pm.response.to.have.status(200));",
+              "pm.test('Response is an array', function () {",
+              "    pm.expect(pm.response.json()).to.be.an('array');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "POST - Create Post",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"QA Automation Project\",\n  \"body\": \"Postman API testing practice\",\n  \"userId\": 1\n}"
+        },
+        "url": "{{baseUrl}}/posts"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 201', () => pm.response.to.have.status(201));",
+              "pm.test('Created object contains title', function () {",
+              "    const body = pm.response.json();",
+              "    pm.expect(body.title).to.eql('QA Automation Project');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "PUT - Update Post",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": 1,\n  \"title\": \"Updated QA Project\",\n  \"body\": \"Updated using PUT\",\n  \"userId\": 1\n}"
+        },
+        "url": "{{baseUrl}}/posts/{{postId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', () => pm.response.to.have.status(200));",
+              "pm.test('Updated title is returned', function () {",
+              "    pm.expect(pm.response.json().title).to.eql('Updated QA Project');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "PATCH - Partially Update Post",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Partially Updated\"\n}"
+        },
+        "url": "{{baseUrl}}/posts/{{postId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', () => pm.response.to.have.status(200));",
+              "pm.test('Title is updated', () => pm.expect(pm.response.json().title).to.eql('Partially Updated'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "DELETE - Delete Post",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/posts/{{postId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', () => pm.response.to.have.status(200));",
+              "pm.test('Response body is empty object', () => pm.expect(pm.response.json()).to.be.an('object'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Negative - Invalid User",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/users/99999"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Invalid user returns 404', () => pm.response.to.have.status(404));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Negative - Invalid Post",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/posts/99999"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Invalid post returns 404', () => pm.response.to.have.status(404));"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
