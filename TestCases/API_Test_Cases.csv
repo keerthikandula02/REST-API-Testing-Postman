@@ -1,16 +1,26 @@
 TC_ID,Module,Method,Endpoint,Scenario,Expected_Result,Priority,Type
-TC001,Users,GET,/users/1,Get valid user,200 and required fields present,High,Positive
-TC002,Users,GET,/users/99999,Get invalid user,404 response,High,Negative
-TC003,Posts,GET,/posts,Get all posts,200 and array response,High,Positive
-TC004,Posts,GET,/posts/1,Get valid post,200 and required fields present,High,Positive
-TC005,Posts,GET,/posts/99999,Get invalid post,404 response,High,Negative
-TC006,Posts,POST,/posts,Create valid post,201 and created payload,High,Positive
-TC007,Posts,PUT,/posts/1,Update complete post,200 and updated payload,High,Positive
-TC008,Posts,PATCH,/posts/1,Partially update title,200 and updated title,High,Positive
-TC009,Posts,DELETE,/posts/1,Delete post,200 successful response,High,Positive
-TC010,Validation,GET,/users/1,Validate response time,Below 1000ms under normal conditions,Medium,Performance
-TC011,Validation,GET,/users/1,Validate JSON response,Valid JSON content,Medium,Validation
-TC012,Validation,GET,/users/1,Validate required id,Numeric id exists,High,Validation
-TC013,Validation,GET,/users/1,Validate email,Email field exists,Medium,Validation
-TC014,Variables,GET,/users/{{userId}},Use environment variable,Correct user returned,Medium,Configuration
-TC015,Collection,Multiple,Collection,Run regression suite,All applicable assertions pass,High,Regression
+TC001,Users,GET,/users/1,Get valid user,200 and id name email present,High,Positive
+TC002,Users,GET,/users/2,Get another valid user,200 and valid JSON response,Medium,Positive
+TC003,Users,GET,/users/99999,Get invalid user,404 response,High,Negative
+TC004,Users,GET,/users/abc,Use non-numeric user ID,4xx response or safe handling,Medium,Negative
+TC005,Posts,GET,/posts,Get all posts,200 and array response,High,Positive
+TC006,Posts,GET,/posts/1,Get valid post,200 and required fields present,High,Positive
+TC007,Posts,GET,/posts/99999,Get invalid post,404 response,High,Negative
+TC008,Posts,POST,/posts,Create valid post,201 and created object returned,High,Positive
+TC009,Posts,POST,/posts,Create post with empty body,API validation behavior is evaluated,Medium,Negative
+TC010,Posts,POST,/posts,Create post with missing userId,API validation behavior is evaluated,Medium,Negative
+TC011,Posts,PUT,/posts/1,Update complete post,200 and updated fields returned,High,Positive
+TC012,Posts,PUT,/posts/99999,Update invalid post,Appropriate error/status response,Medium,Negative
+TC013,Posts,PATCH,/posts/1,Partially update title,200 and title updated,High,Positive
+TC014,Posts,PATCH,/posts/99999,Patch invalid post,Appropriate error/status response,Medium,Negative
+TC015,Posts,DELETE,/posts/1,Delete existing post,Successful 200 response,High,Positive
+TC016,Posts,DELETE,/posts/99999,Delete invalid post,Appropriate error/status response,Medium,Negative
+TC017,Validation,GET,/users/1,Validate response time,Below 1000ms under normal conditions,Medium,Performance
+TC018,Validation,GET,/users/1,Validate content type,JSON content type,Medium,Validation
+TC019,Validation,GET,/users/1,Validate id field,id exists and is numeric,High,Validation
+TC020,Validation,GET,/users/1,Validate email field,email exists,Medium,Validation
+TC021,Validation,GET,/posts,Validate array response,Response is an array,Medium,Validation
+TC022,Variables,GET,/users/{{userId}},Use environment userId variable,Correct user is returned,Medium,Configuration
+TC023,Variables,GET,/posts/{{postId}},Use environment postId variable,Correct post is returned,Medium,Configuration
+TC024,Collection,Multiple,Collection,Run complete collection,All applicable assertions pass,High,Regression
+TC025,Reporting,Multiple,Collection,Review execution results,Pass/fail details are available,Medium,Reporting
