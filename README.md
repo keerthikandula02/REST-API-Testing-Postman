@@ -200,8 +200,4 @@ REST-API-Testing-Postman/
 
 **What if a test fails?** Inspect request, headers, body, status and response; reproduce the issue; compare expected vs actual; document a clear defect.
 
-## ⚠️ Portfolio Disclaimer
 
-JSONPlaceholder is a public fake API for testing and prototyping. This repository is a learning/portfolio project and does not claim production testing experience for a real company.
-
-<p align="center"><b>QA Automation / API Testing Portfolio Project</b></p>
